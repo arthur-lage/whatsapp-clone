@@ -10,8 +10,10 @@ type ContactType = {
   lastMessage: string;
   lastMessageDate: Date;
   isPinned: boolean;
-  isVideo: boolean
-  isImage: boolean
+  isVideo: boolean;
+  isImage: boolean;
+  received: boolean;
+  read: boolean;
 };
 
 type Props = {
@@ -32,6 +34,8 @@ const ContactList = ({ contacts }: Props) => {
               isPinned={contactData.isPinned}
               isImage={contactData.isImage}
               isVideo={contactData.isVideo}
+              received={contactData.received}
+              read={contactData.read}
               key={key}
             />
           ))}

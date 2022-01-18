@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CurrentlyChatting from "../CurrentlyChatting";
 import UserPanel from "../UserPanel";
@@ -11,9 +11,12 @@ import ContactList from "../ContactList";
 import FemaleImage from "../../assets/contact-female.jpg";
 import MaleImage from "../../assets/contact-male.jpg";
 import KeepYourPhoneConnected from "../KeepYourPhoneConnected";
+import { useSearch } from "../../contexts/SearchContext";
 
 const Layout: React.FC = () => {
-  const [contacts, setContacts] = useState([
+  const { currentSearch } = useSearch();
+
+  const contactsArray = [
     {
       image: FemaleImage,
       name: "Jada",
@@ -22,6 +25,8 @@ const Layout: React.FC = () => {
       isPinned: true,
       isImage: false,
       isVideo: true,
+      received: true,
+      read: true
     },
     {
       image: MaleImage,
@@ -31,6 +36,8 @@ const Layout: React.FC = () => {
       isPinned: true,
       isImage: true,
       isVideo: false,
+      received: true,
+      read: true
     },
     {
       image: MaleImage,
@@ -40,6 +47,8 @@ const Layout: React.FC = () => {
       isPinned: true,
       isImage: false,
       isVideo: false,
+      received: false,
+      read: false
     },
     {
       image: MaleImage,
@@ -49,6 +58,8 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: false,
       isVideo: true,
+      received: true,
+      read: false
     },
     {
       image: MaleImage,
@@ -58,6 +69,8 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: true,
       isVideo: false,
+      received: true,
+      read: false
     },
     {
       image: MaleImage,
@@ -67,6 +80,8 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: true,
       isVideo: false,
+      received: true,
+      read: true
     },
     {
       image: FemaleImage,
@@ -76,6 +91,8 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: false,
       isVideo: false,
+      received: false,
+      read: false
     },
     {
       image: FemaleImage,
@@ -85,6 +102,8 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: false,
       isVideo: false,
+      received: true,
+      read: false
     },
     {
       image: FemaleImage,
@@ -92,8 +111,8 @@ const Layout: React.FC = () => {
       lastMessage: "Hi",
       lastMessageDate: new Date(1642507223235),
       isPinned: false,
-      isImage: false,
-      isVideo: false,
+      received: true,
+      read: true
     },
     {
       image: FemaleImage,
@@ -103,6 +122,8 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: false,
       isVideo: false,
+      received: true,
+      read: false
     },
     {
       image: FemaleImage,
@@ -112,10 +133,23 @@ const Layout: React.FC = () => {
       isPinned: false,
       isImage: false,
       isVideo: false,
+      received: false,
+      read: false
     },
-  ]);
+  ];
+
+  const [contacts, setContacts] = useState<any>([]);
 
   const [isChatting, setIsChatting] = useState(false);
+
+  useEffect(() => {
+    if(currentSearch === "") {
+      setContacts(contactsArray)
+    } else {
+      const filteredArray = contactsArray.filter(contact => contact.name.toLowerCase().includes(currentSearch.toLowerCase()))
+      setContacts(filteredArray)
+    }
+  }, [currentSearch]);
 
   return (
     <Grid>

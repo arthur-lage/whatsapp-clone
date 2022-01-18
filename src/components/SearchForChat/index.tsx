@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useSearch } from "../../contexts/SearchContext";
 
 import { Container } from "./styles";
 
 const SearchForChat: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
 
+  const { currentSearch, setCurrentSearch } = useSearch()
+
   const handleSearchButton = () => {
     if (isSearching) {
       setIsSearching(false);
       // @ts-ignore
-      document.querySelector("#search-input").value = ""
+      setCurrentSearch("")
       // @ts-ignore
       document.querySelector("#blur-hack").focus();
     } else {
@@ -33,6 +36,8 @@ const SearchForChat: React.FC = () => {
         id="search-input"
         placeholder="Search or start new chat"
         onFocus={() => setIsSearching(true)}
+        value={currentSearch}
+        onChange={e => setCurrentSearch(e.target.value)}
       />
       <input id="blur-hack" type="hidden" style={{ position: "absolute", opacity: "0" }} />
     </Container>

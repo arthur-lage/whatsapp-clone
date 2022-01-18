@@ -43,7 +43,7 @@ export const Container = styled.div`
       cursor: pointer;
     }
 
-    svg {
+    .pinned {
       margin-right: 2rem;
     }
   }
@@ -76,6 +76,9 @@ export const Left = styled.div`
       font-weight: 400;
       font-size: clamp(0.8rem, 1vw, 1.4rem);
       color: #444;
+
+      display: flex;
+      align-items: center;
 
       span {
         margin-right: .5rem;

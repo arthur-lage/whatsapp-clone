@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Container, ProfilePicture, Actions } from "./styles";
+import { Container, ProfilePicture, Actions, Options } from "./styles";
 
-import UserPicture from "../../assets/user-image.jpg"
+import UserPicture from "../../assets/user-image.jpg";
 
 const UserPanel: React.FC = () => {
+  const [isOptionsVisible, setIsOptionsVisible] = useState(false)
+
+  const handleOptions = () => {
+    if(isOptionsVisible) {
+      setIsOptionsVisible(false)
+    } else {
+      setIsOptionsVisible(true)
+    }
+  };
+
   return (
     <Container>
       <ProfilePicture>
-          <img src={UserPicture} alt="Profile Picture" />
+        <img src={UserPicture} alt="Profile Picture" />
       </ProfilePicture>
-      
+
       <Actions>
         <button>
           <svg
@@ -41,7 +51,7 @@ const UserPanel: React.FC = () => {
             ></path>
           </svg>
         </button>
-        <button>
+        <button onBlur={() => setIsOptionsVisible(false)} onClick={handleOptions}>
           <svg viewBox="0 0 24 24" width="24" height="24" className="">
             <path
               fill="currentColor"
@@ -49,6 +59,22 @@ const UserPanel: React.FC = () => {
             ></path>
           </svg>
         </button>
+        <Options className={isOptionsVisible ? "active" : ""}>
+          <ul>
+            <li>
+              <button>New Group</button>
+            </li>
+            <li>
+              <button>Starred Messages</button>
+            </li>
+            <li>
+              <button>Settings</button>
+            </li>
+            <li>
+              <button>Log out</button>
+            </li>
+          </ul>
+        </Options>
       </Actions>
     </Container>
   );
