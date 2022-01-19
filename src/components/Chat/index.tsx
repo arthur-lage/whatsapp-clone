@@ -2,9 +2,11 @@ import React from 'react'
 
 import { Container } from './styles'
 
-const Chat: React.FC = () => {
+const Chat: React.FC = ({ chattingTo }: any) => {
     return (
-        <Container></Container>
+        <Container>
+            this is the chat
+        </Container>
     )
 }
 

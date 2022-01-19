@@ -12,6 +12,7 @@ import FemaleImage from "../../assets/contact-female.jpg";
 import MaleImage from "../../assets/contact-male.jpg";
 import KeepYourPhoneConnected from "../KeepYourPhoneConnected";
 import { useSearch } from "../../contexts/SearchContext";
+import { useChat } from "../../contexts/ChatContext";
 
 const Layout: React.FC = () => {
   const { currentSearch } = useSearch();
@@ -26,7 +27,7 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: true,
       received: true,
-      read: true
+      read: true,
     },
     {
       image: MaleImage,
@@ -37,7 +38,7 @@ const Layout: React.FC = () => {
       isImage: true,
       isVideo: false,
       received: true,
-      read: true
+      read: true,
     },
     {
       image: MaleImage,
@@ -48,7 +49,7 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: false,
       received: false,
-      read: false
+      read: false,
     },
     {
       image: MaleImage,
@@ -59,7 +60,7 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: true,
       received: true,
-      read: false
+      read: false,
     },
     {
       image: MaleImage,
@@ -70,7 +71,7 @@ const Layout: React.FC = () => {
       isImage: true,
       isVideo: false,
       received: true,
-      read: false
+      read: false,
     },
     {
       image: MaleImage,
@@ -81,7 +82,7 @@ const Layout: React.FC = () => {
       isImage: true,
       isVideo: false,
       received: true,
-      read: true
+      read: true,
     },
     {
       image: FemaleImage,
@@ -92,7 +93,7 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: false,
       received: false,
-      read: false
+      read: false,
     },
     {
       image: FemaleImage,
@@ -103,7 +104,7 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: false,
       received: true,
-      read: false
+      read: false,
     },
     {
       image: FemaleImage,
@@ -112,7 +113,7 @@ const Layout: React.FC = () => {
       lastMessageDate: new Date(1642507223235),
       isPinned: false,
       received: true,
-      read: true
+      read: true,
     },
     {
       image: FemaleImage,
@@ -123,7 +124,7 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: false,
       received: true,
-      read: false
+      read: false,
     },
     {
       image: FemaleImage,
@@ -134,20 +135,22 @@ const Layout: React.FC = () => {
       isImage: false,
       isVideo: false,
       received: false,
-      read: false
+      read: false,
     },
   ];
 
   const [contacts, setContacts] = useState<any>([]);
 
-  const [isChatting, setIsChatting] = useState(false);
+  const { isChatting, currentChat } = useChat();
 
   useEffect(() => {
-    if(currentSearch === "") {
-      setContacts(contactsArray)
+    if (currentSearch === "") {
+      setContacts(contactsArray);
     } else {
-      const filteredArray = contactsArray.filter(contact => contact.name.toLowerCase().includes(currentSearch.toLowerCase()))
-      setContacts(filteredArray)
+      const filteredArray = contactsArray.filter((contact) =>
+        contact.name.toLowerCase().includes(currentSearch.toLowerCase())
+      );
+      setContacts(filteredArray);
     }
   }, [currentSearch]);
 
@@ -155,9 +158,17 @@ const Layout: React.FC = () => {
     <Grid>
       <UserPanel />
       <SearchForChat />
-      {isChatting && <CurrentlyChatting />}
+      {isChatting && (
+        //@ts-ignore
+        <CurrentlyChatting props={currentChat} />
+      )}
       <ContactList contacts={contacts} />
-      {isChatting ? <Chat /> : <KeepYourPhoneConnected />}
+      {isChatting ? (
+        //@ts-ignore
+        <Chat chattingTo={currentChat} />
+      ) : (
+        <KeepYourPhoneConnected />
+      )}
     </Grid>
   );
 };

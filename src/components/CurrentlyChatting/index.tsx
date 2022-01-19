@@ -2,17 +2,27 @@ import React from "react";
 
 import { Container, ContactInfo, Actions } from "./styles";
 
-import ContactPicture from '../../assets/contact-image.jpg'
+type Props = {
+  name: string
+  image: string
+  lastMessageDate: Date
+}
 
-const CurrentlyChatting: React.FC = () => {
+type IContact = {
+  props: Props
+}
+
+const CurrentlyChatting = (props: IContact) => {
+  console.log(props.props)
+
   return (
     <Container>
       <ContactInfo>
-        <img src={ContactPicture} alt="Contact" />
+        <img src={props.props.image} alt="Contact" />
 
         <div>
-          <h2>Person</h2>
-          <p>last seen today at 6:30 PM</p>
+          <h2>{props.props.name}</h2>
+          <p>{props.props.lastMessageDate.toString()}</p>
         </div>
       </ContactInfo>
       <Actions>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useChat } from "../../contexts/ChatContext";
 
 import { Container, Left, Right } from "./styles";
 
@@ -15,6 +16,8 @@ type Props = {
 };
 
 const Contact = (props: Props) => {
+  const { setIsChatting, setCurrentChat } = useChat()
+
   const messageHours =
     props.lastMessageDate.getHours() < 10
       ? `0${props.lastMessageDate.getHours()}`
@@ -24,8 +27,13 @@ const Contact = (props: Props) => {
       ? `0${props.lastMessageDate.getMinutes()}`
       : props.lastMessageDate.getMinutes();
 
+  const handleContactClick = () => {
+    setIsChatting(true)
+    setCurrentChat(props)
+  }
+
   return (
-    <Container>
+    <Container onClick={handleContactClick}>
       <Left>
         <img src={props.image} alt="Contact" />
         <div>
