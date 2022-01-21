@@ -3,17 +3,22 @@ import React from "react";
 import { Container, ContactInfo, Actions } from "./styles";
 
 type Props = {
-  name: string
-  image: string
-  lastMessageDate: Date
-}
+  name: string;
+  image: string;
+  lastMessageDate: Date;
+};
 
 type IContact = {
-  props: Props
-}
+  props: Props;
+};
 
 const CurrentlyChatting = (props: IContact) => {
-  console.log(props.props)
+  const messageHours = props.props.lastMessageDate.getHours();
+  const messageHoursConverted = messageHours % 12 || 12;
+  const messageMinutes =
+    props.props.lastMessageDate.getMinutes() < 10
+      ? `0${props.props.lastMessageDate.getMinutes()}`
+      : props.props.lastMessageDate.getMinutes();
 
   return (
     <Container>
@@ -22,7 +27,10 @@ const CurrentlyChatting = (props: IContact) => {
 
         <div>
           <h2>{props.props.name}</h2>
-          <p>{props.props.lastMessageDate.toString()}</p>
+          <p>
+            last seen today at {messageHoursConverted}:{messageMinutes}{" "}
+            {messageHours < 12 ? "AM" : "PM"}
+          </p>
         </div>
       </ContactInfo>
       <Actions>
@@ -34,7 +42,7 @@ const CurrentlyChatting = (props: IContact) => {
             ></path>
           </svg>
         </button>
-        
+
         <button>
           <svg viewBox="0 0 24 24" width="24" height="24" className="">
             <path

@@ -16,21 +16,18 @@ type Props = {
 };
 
 const Contact = (props: Props) => {
-  const { setIsChatting, setCurrentChat } = useChat()
+  const { setIsChatting, setCurrentChat } = useChat();
 
-  const messageHours =
-    props.lastMessageDate.getHours() < 10
-      ? `0${props.lastMessageDate.getHours()}`
-      : props.lastMessageDate.getHours();
+  const messageHours = props.lastMessageDate.getHours();
   const messageMinutes =
     props.lastMessageDate.getMinutes() < 10
       ? `0${props.lastMessageDate.getMinutes()}`
       : props.lastMessageDate.getMinutes();
 
   const handleContactClick = () => {
-    setIsChatting(true)
-    setCurrentChat(props)
-  }
+    setIsChatting(true);
+    setCurrentChat(props);
+  };
 
   return (
     <Container onClick={handleContactClick}>
@@ -48,7 +45,9 @@ const Contact = (props: Props) => {
                   ></path>
                 </svg>
               </span>
-            ) : ("")}
+            ) : (
+              ""
+            )}
             {props.received && props.read ? (
               <span>
                 <svg viewBox="0 0 18 18" width="18" height="18" className="">
@@ -58,7 +57,9 @@ const Contact = (props: Props) => {
                   ></path>
                 </svg>
               </span>
-            ) : ("")}
+            ) : (
+              ""
+            )}
             {props.isImage && (
               <span>
                 <i className="fas fa-camera"></i>

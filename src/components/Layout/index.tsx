@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 
+import { Grid } from "./styles";
+
 import CurrentlyChatting from "../CurrentlyChatting";
 import UserPanel from "../UserPanel";
 import SearchForChat from "../SearchForChat";
 import Chat from "../Chat";
-
-import { Grid } from "./styles";
 import ContactList from "../ContactList";
+import KeepYourPhoneConnected from "../KeepYourPhoneConnected";
+import MessageInput from "../MessageInput";
 
 import FemaleImage from "../../assets/contact-female.jpg";
 import MaleImage from "../../assets/contact-male.jpg";
-import KeepYourPhoneConnected from "../KeepYourPhoneConnected";
+
 import { useSearch } from "../../contexts/SearchContext";
 import { useChat } from "../../contexts/ChatContext";
 
@@ -164,8 +166,11 @@ const Layout: React.FC = () => {
       )}
       <ContactList contacts={contacts} />
       {isChatting ? (
-        //@ts-ignore
-        <Chat chattingTo={currentChat} />
+        <>
+          {/*@ts-ignore*/}
+          <Chat chattingTo={currentChat} />
+          <MessageInput />
+        </>
       ) : (
         <KeepYourPhoneConnected />
       )}
